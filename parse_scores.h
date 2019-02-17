@@ -17,8 +17,8 @@
  * - Integer -10 when the format is corrupt i.e. 1 1234 3 99.7 82.1
  */
 int get_num_grades(int id, const std::string values[], int size){
-
-}// ending bracket for function get_nut_grades
+    
+}// ending bracket for function get_num_grades
 
 /* Description:
  *   Parses the values array to get all grades for a student matching parameter
@@ -112,13 +112,35 @@ int get_student_ids(const std::string values[], int size, int ids[]);
 /*
 * Checks the values array for format corruption
 *Returns:
-* - integer 1 if format is corrupt 
+* - integer -10 if format is corrupt 
 * i.e. 2 1234 1 99.2 2345
 *  i.e. 1 1234 3 99.7 82.1
 */
 int is_corrupted(const std::string values[], int size, int ids[]){
+    int flag = 0;
+    int position = 0;
 
-//Testing to see if this shows
+    for(int i = 0; i < std::stoi(values[0]); ++i){
+        ++position;
+        if(values[position].length() == 4){
+            ++position;
+            int j = std::stoi(values[position]);
+            while(j > 0){
+                ++position;
+                if(values[position].at(2) == '.'){
+                }else{
+                    flag = 1;
+                    break;
+                }//ending bracket for if else
+                --j;
+            }// ending bracket for while loop
+        }// ending bracket of if statement
+
+
+
+    } // Ending bracket of outer for loop
+
 } // Ending bracket of function is_corrupted
 
-// test 2
+int is_double(std::string )
+
