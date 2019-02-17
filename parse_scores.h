@@ -1,4 +1,7 @@
 #include <string>
+#include <iostream>
+using std::cout;
+using std::endl;
 
 
 /* Description:
@@ -112,35 +115,47 @@ int get_student_ids(const std::string values[], int size, int ids[]);
 /*
 * Checks the values array for format corruption
 *Returns:
-* - integer -10 if format is corrupt 
+* - integer -1 if array is corrupt 
 * i.e. 2 1234 1 99.2 2345
 *  i.e. 1 1234 3 99.7 82.1
 */
 int is_corrupted(const std::string values[], int size, int ids[]){
     int flag = 0;
     int position = 0;
-
     for(int i = 0; i < std::stoi(values[0]); ++i){
         ++position;
         if(values[position].length() == 4){
-            ++position;
-            int j = std::stoi(values[position]);
-            while(j > 0){
+            cout << "id at position " << position << " is " << std::stoi(values[position]) << endl;
+            if((position +1) == size){
+                flag = 1;
+                break;
+            }else{
                 ++position;
-                if(values[position].at(2) == '.'){
-                }else{
-                    flag = 1;
+                int j = std::stoi(values[position]);
+                while(j > 0){
+                    ++position;
+                    if((position + j) > size){
+                        flag = 1;
+                        break;
+                    }else{
+                        if(values[position].at(2) == '.'){
+                            cout << "score at position " << position << " is " << values[position] << endl;
+                            }else{
+                                flag = 1;
+                                break;
+                            }//ending bracket for if else
+                    }//ending bracket for else
+                    --j;
+                }// ending bracket for while loop
+                if(flag == 1){
                     break;
-                }//ending bracket for if else
-                --j;
-            }// ending bracket for while loop
+                }//ending bracket for if statement
+            }//ending bracket for else statement
         }// ending bracket of if statement
+    } // Ending bracket of for loop
 
-
-
-    } // Ending bracket of outer for loop
-
-} // Ending bracket of function is_corrupted
+    cout << flag << endl;
+    return flag;
 
 int is_double(std::string )
 
