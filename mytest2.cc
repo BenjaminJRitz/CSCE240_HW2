@@ -15,6 +15,7 @@ std::string values[] = {
 int kSize = 19;
 
 int ids[3];
+double grades[10];
 
 
 
@@ -27,18 +28,27 @@ int main(int argc, char* argv[]){
         cout << "The array is legit" << endl;
     }//ending bracket for if else
 
-    cout << get_student_ids(values, kSize, ids) << endl;
+    //cout << get_student_ids(values, kSize, ids) << endl;
 
 
 
     
 
-    cout << get_max_grade(values, kSize) << endl;
+    //cout << get_max_grade(values, kSize) << endl;
 
-    cout << get_max_grade_id(values, kSize) << endl;
+    //cout << get_max_grade_id(values, kSize) << endl;
 
     //double get_grade(int id, int grade_index, const std::string values[], int size)
-    cout << get_grade(2345, 7, values, kSize) << endl;
+    //cout << get_grade(1345, 3, values, kSize) << endl;
+
+    //int get_num_grades(int id, const std::string values[], int size)
+    //cout << get_num_grades(3456, values, kSize) << endl;
+
+    //int get_grades(int id, const std::string values[], int size, double grades[])
+    cout << get_grades(3457, values, kSize, grades) << endl;
+    for(int i = 0; i < get_grades(3457, values, kSize, grades); ++i){
+      cout << grades[i] << endl;
+    }//ending bracketfor for loop
 
 
     return 0;

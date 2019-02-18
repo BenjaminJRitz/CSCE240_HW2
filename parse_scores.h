@@ -48,9 +48,8 @@ int is_corrupted(const std::string values[], int size){
     //cout << flag << endl;
     return flag;
 }//ending bracket for funtion is_corrupted
+
 //----------------------------------------------------------------------------------------------------
-
-
 /* Description:
  *   Parses the values array to determine how many grades are present for a
  *   student selected by the id parameter and returns that value.
@@ -67,9 +66,20 @@ int is_corrupted(const std::string values[], int size){
  * - Integer -10 when the format is corrupt i.e. 1 1234 3 99.7 82.1
  */
 int get_num_grades(int id, const std::string values[], int size){
-    return 0;
+    int grades = -1;
+    if(is_corrupted(values, size) == 1){
+        grades = -10;
+    }else{
+        for(int i = 0; i <size; ++i){
+            if(std::stoi(values[i]) == id){
+                grades = std::stoi(values[i+1]);
+            }//ending bracket for if
+        }//ending bracekt for for loop
+    }//ending bracekt for else
+    return grades;
 }// ending bracket for function get_num_grades
 
+//-------------------------------------------------------------------------------------------------------------
 /* Description:
  *   Parses the values array to get all grades for a student matching parameter
  *   id
@@ -90,8 +100,25 @@ int get_num_grades(int id, const std::string values[], int size){
  * - Integer -10 if format corrupt i.e. 2 1234 1 99.2 2345
  * - Integer -1 if id not found
  */
-int get_grades(int id, const std::string values[], int size, double grades[]);
+int get_grades(int id, const std::string values[], int size, double grades[]){
+    int numGrades = -1;
+    if(is_corrupted(values,size)==1){
+        numGrades = -10;
+    }else{
 
+        for(int i = 0; i < size; ++i){
+            if(std::stoi(values[i])==id){
+                numGrades = std::stoi(values[i+1]);
+                for(int j = 0; j < numGrades; ++j){
+                    grades[j] = std::stod(values[i+2+j]);
+                }//ending bracket for inner for loop
+            }//ending bracekt for if
+        }//ending bracket for outer for loop
+    }//ending bracket for else
+    return numGrades;
+}//ending bracket for function get_grades
+
+//---------------------------------------------------------------------------------------------------
 /* Description:
  *   Extracts a single grade for a given student and given grade index.
  * Preconditions:
@@ -113,20 +140,19 @@ double get_grade(int id, int grade_index, const std::string values[], int size){
         grade = -10;
     }else{
         for(int i = 0;i < size; ++i){
-            if((std::stoi(values[i]) == id) && ((values[i+1+grade_index].at(2)) == '.')){
+            if((std::stoi(values[i]) == id) && (std::stoi(values[i+1]) >= grade_index)){
                 grade = std::stod(values[i+1+grade_index]);
                 break;
-            }else if((std::stoi(values[i]) == id) && ((values[i+1+grade_index].at(2)) != '.')){
-                grade = -2;
-                break;
+            }else if((std::stoi(values[i]) == id) && (std::stoi(values[i+1]) < grade_index)){
+                    grade = -2;
+                    break;
             }else{
                 grade = -1;
-            }//ending bracket for else ifs
+            }//ending bracket for if else
         }//ending bracket for for loop
-    }//ending bracket for else ifs
+    }//ending bracket for ir else
     return grade;
-
-}// ending bracket for function get_grade
+}//ending bracket for function get_grade
 
 //--------------------------------------------------------------------------------------------------
 /* Description:
