@@ -3,6 +3,53 @@
 using std::cout;
 using std::endl;
 
+/*
+* Checks the values array for format corruption
+*Returns:
+* - integer -1 if array is corrupt 
+* i.e. 2 1234 1 99.2 2345
+*  i.e. 1 1234 3 99.7 82.1
+*/
+int is_corrupted(const std::string values[], int size){
+    int flag = 0;
+    int position = 0;
+    for(int i = 0; i < std::stoi(values[0]); ++i){
+        ++position;
+        if(values[position].length() == 4){
+            cout << "id at position " << position << " is " << std::stoi(values[position]) << endl;
+            if((position +1) == size){
+                flag = 1;
+                break;
+            }else{
+                ++position;
+                int j = std::stoi(values[position]);
+                while(j > 0){
+                    ++position;
+                    if((position + j) > size){
+                        flag = 1;
+                        break;
+                    }else{
+                        if(values[position].at(2) == '.'){
+                            cout << "score at position " << position << " is " << values[position] << endl;
+                            }else{
+                                flag = 1;
+                                break;
+                            }//ending bracket for if else
+                    }//ending bracket for else
+                    --j;
+                }// ending bracket for while loop
+                if(flag == 1){
+                    break;
+                }//ending bracket for if statement
+            }//ending bracket for else statement
+        }// ending bracket of if statement
+    } // Ending bracket of for loop
+
+    cout << flag << endl;
+    return flag;
+}//ending bracket for funtion is_corrupted
+//----------------------------------------------------------------------------------------------------
+
 
 /* Description:
  *   Parses the values array to determine how many grades are present for a
@@ -20,7 +67,7 @@ using std::endl;
  * - Integer -10 when the format is corrupt i.e. 1 1234 3 99.7 82.1
  */
 int get_num_grades(int id, const std::string values[], int size){
-    
+    return 0;
 }// ending bracket for function get_num_grades
 
 /* Description:
@@ -110,54 +157,29 @@ double get_max_grade(const std::string values[], int size);
  * - Integer -10 if format corrupt i.e. 2 1234 1 99.2 2345
  */
 int get_student_ids(const std::string values[], int size, int ids[]){
-    
+    int retValue = 0;
+    int valuesPosition = 1;
+    int idsPosition = 0;
+    int numGrade = 0;
+
+    if(is_corrupted(values, size) == 1){
+        retValue = -10;
+    }else{
+        for(int i = 0; i < std::stoi(values[0]); i++){
+            ids[idsPosition] = std::stoi(values[valuesPosition]);
+            ++numGrade;
+            ++valuesPosition;
+            valuesPosition += std::stoi(values[valuesPosition]);
+            ++valuesPosition;
+            ++idsPosition;
+        }// ending bracket of for loop
+        retValue = numGrade;
+    }//ending bracket of else
+
+    return retValue;
 
 }//ending bracket for function ge_student_ids
 
 //-----------------------------------------------------------------------------------------------------
-/*
-* Checks the values array for format corruption
-*Returns:
-* - integer -1 if array is corrupt 
-* i.e. 2 1234 1 99.2 2345
-*  i.e. 1 1234 3 99.7 82.1
-*/
-int is_corrupted(const std::string values[], int size){
-    int flag = 0;
-    int position = 0;
-    for(int i = 0; i < std::stoi(values[0]); ++i){
-        ++position;
-        if(values[position].length() == 4){
-            cout << "id at position " << position << " is " << std::stoi(values[position]) << endl;
-            if((position +1) == size){
-                flag = 1;
-                break;
-            }else{
-                ++position;
-                int j = std::stoi(values[position]);
-                while(j > 0){
-                    ++position;
-                    if((position + j) > size){
-                        flag = 1;
-                        break;
-                    }else{
-                        if(values[position].at(2) == '.'){
-                            cout << "score at position " << position << " is " << values[position] << endl;
-                            }else{
-                                flag = 1;
-                                break;
-                            }//ending bracket for if else
-                    }//ending bracket for else
-                    --j;
-                }// ending bracket for while loop
-                if(flag == 1){
-                    break;
-                }//ending bracket for if statement
-            }//ending bracket for else statement
-        }// ending bracket of if statement
-    } // Ending bracket of for loop
 
-    cout << flag << endl;
-    return flag;
-}//ending bracket for funtion is_corrupted
 
