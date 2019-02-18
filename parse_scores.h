@@ -60,8 +60,7 @@ int get_grades(int id, const std::string values[], int size, double grades[]);
  * - Integer -2 when grade_index is not found
  * - Integer -10 when values format is corrupt
  */
-double get_grade(int id,
-                   int grade_index, const std::string values[], int size);
+double get_grade(int id, int grade_index, const std::string values[], int size);
 
 /* Description:
  *   Extracts the id of the student with the highest grade.
@@ -119,7 +118,7 @@ int get_student_ids(const std::string values[], int size, int ids[]);
 * i.e. 2 1234 1 99.2 2345
 *  i.e. 1 1234 3 99.7 82.1
 */
-int is_corrupted(const std::string values[], int size, int ids[]){
+int is_corrupted(const std::string values[], int size){
     int flag = 0;
     int position = 0;
     for(int i = 0; i < std::stoi(values[0]); ++i){
@@ -156,6 +155,5 @@ int is_corrupted(const std::string values[], int size, int ids[]){
 
     cout << flag << endl;
     return flag;
-
-int is_double(std::string )
+}//ending bracket for funtion is_corrupted
 
