@@ -9,9 +9,9 @@ using std::endl;
 
 std::string values[] = {
   "3",
-  "1234", "3", "98.7", "87.92", "77.32",
-  "2345", "4", "93.1", "90.23", "81.21", "89.33",
-  "3456", "5", "99.3", "99.3", "83.49", "76.48", "65.98"};
+  "1234", "3", "99.1", "87.92", "77.32",
+  "2345", "4", "93.1", "99.6", "81.21", "89.33",
+  "3456", "5", "99.3", "99.3", "83.49", "76.48", "99.6"};
 int kSize = 19;
 
 int ids[3];
@@ -31,9 +31,15 @@ int main(int argc, char* argv[]){
 
 
 
-    for(int i = 0; i < 3; ++i){
-        cout << ids[i] << endl;
-    }//ending bracket for for loop
+    
+
+    cout << get_max_grade(values, kSize) << endl;
+
+    cout << get_max_grade_id(values, kSize) << endl;
+
+    //double get_grade(int id, int grade_index, const std::string values[], int size)
+    cout << get_grade(2345, 7, values, kSize) << endl;
+
 
     return 0;
 

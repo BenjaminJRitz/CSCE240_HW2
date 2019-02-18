@@ -11,30 +11,29 @@ std::string values[] = {
   "3",
   "1234", "3", "98.7", "87.92", "77.32",
   "2345", "4", "93.1", "90.23", "81.21", "89.33",
-  "3456", "5", "99.3", "99.3", "83.49", "76.48", "65.98"};
-int kSize = 19;
+  "3456", "5", "99.3", "99.3", "83.49", "76.48", "98.6"};
+int size = 19;
 //int flag = 0;
 //int size = 0;
 //std::string test = kValues[4];
 
 int main(int argc, char* argv[]) {
-    /*size = kValues[4].length();
-    *cout << size << endl;
-    *cout << kValues[4].at(2) << endl;
-    *if(kValues[4].at(3) == '.'){
-    *   flag = 1;
-    *} // ending bracket for if statement
-    *cout << flag << endl;
-    *cout << std::stoi(kValues[0]) << endl;
-    */
 
+   
     int flag = 0;
     int position = 0;
+    int ids = 0;
+    
     for(int i = 0; i < std::stoi(values[0]); ++i){
+        if(ids > std::stoi(values[0])){
+            flag = 1;
+            break;
+        }//ending bracke for if
         ++position;
         if(values[position].length() == 4){
+            ++ids;
             cout << "id at position " << position << " is " << std::stoi(values[position]) << endl;
-            if((position +1) == kSize){
+            if((position +1) == size){
                 flag = 1;
                 break;
             }else{
@@ -42,7 +41,7 @@ int main(int argc, char* argv[]) {
                 int j = std::stoi(values[position]);
                 while(j > 0){
                     ++position;
-                    if((position + j) > kSize){
+                    if((position + j) > size){
                         flag = 1;
                         break;
                     }else{
@@ -64,4 +63,5 @@ int main(int argc, char* argv[]) {
 
     cout << flag << endl;
     return flag;
+
 } // ending bracket for main method
