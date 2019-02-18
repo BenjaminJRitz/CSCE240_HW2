@@ -109,8 +109,12 @@ double get_max_grade(const std::string values[], int size);
  * - Number of grades parsed
  * - Integer -10 if format corrupt i.e. 2 1234 1 99.2 2345
  */
-int get_student_ids(const std::string values[], int size, int ids[]);
+int get_student_ids(const std::string values[], int size, int ids[]){
+    
 
+}//ending bracket for function ge_student_ids
+
+//-----------------------------------------------------------------------------------------------------
 /*
 * Checks the values array for format corruption
 *Returns:
