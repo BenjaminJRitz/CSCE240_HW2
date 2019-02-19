@@ -103,7 +103,7 @@ int get_num_grades(int id, const std::string values[], int size){
 int get_grades(int id, const std::string values[], int size, double grades[]){
     int numGrades = -1;
     if(is_corrupted(values,size)==1){
-        numGrades = -10;
+    numGrades = -10;
     }else{
 
         for(int i = 0; i < size; ++i){
@@ -141,7 +141,7 @@ double get_grade(int id, int grade_index, const std::string values[], int size){
     }else{
         for(int i = 0;i < size; ++i){
             if((std::stoi(values[i]) == id) && (std::stoi(values[i+1]) >= grade_index)){
-                grade = std::stod(values[i+1+grade_index]);
+                grade = std::stod(values[i+2+grade_index]);
                 break;
             }else if((std::stoi(values[i]) == id) && (std::stoi(values[i+1]) < grade_index)){
                     grade = -2;

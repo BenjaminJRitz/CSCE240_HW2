@@ -24,21 +24,25 @@ int main(int argc, char* argv[]) {
   assert(grades[0] == 98.7 && grades[2] == 77.32);
   assert(get_grades(2345, kValues, kSize, grades) == 4);
   assert(grades[0] == 93.1 && grades[3] == 89.33);
+  cout << "get_grades passed" << endl;
 
   //test get_grade
   assert(get_grade(1234, 0, kValues, kSize) == 98.7);
   assert(get_grade(1234, 2, kValues, kSize) == 77.32);
   assert(get_grade(2345, 0, kValues, kSize) == 93.1);
   assert(get_grade(2345, 3, kValues, kSize) == 89.33);
+  cout << "get_grade passed" << endl;
 
   // test get_max_ values
   assert(get_max_grade_id(kValues, kSize) == 1234);
   assert(get_max_grade(kValues, kSize) == 98.7);
+  cout << "get_max_values passed" << endl;
 
   // test get_student_ids
   int ids[5];
   assert(get_student_ids(kValues, kSize, ids) == 2);
   assert(ids[0] == 1234);
   assert(ids[1] == 2345);
+  cout << "get_student_ids passed" << endl;
   return 0;
 }
