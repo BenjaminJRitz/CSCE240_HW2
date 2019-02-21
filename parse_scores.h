@@ -1,3 +1,6 @@
+// Copyright 2019 <Benjamin Ritz>
+#ifndef _PARSE_SCORES_H_     // NO LINT
+#define _PARSE_SCORES_H_
 #include <string>
 #include <iostream>
 using std::cout;
@@ -286,5 +289,5 @@ int get_student_ids(const std::string values[], int size, int ids[]) {
 }  // ending bracket for function ge_student_ids
 
 // -----------------------------------------------------------------------------------------------------
-
+#endif  // PARSE_SCORES_H_
 
