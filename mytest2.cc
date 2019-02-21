@@ -28,7 +28,7 @@ int main(int argc, char* argv[]){
         cout << "The array is legit" << endl;
     }//ending bracket for if else
 
-    //cout << get_student_ids(values, kSize, ids) << endl;
+    cout << get_student_ids(values, kSize, ids) << endl;
 
 
 
@@ -39,7 +39,7 @@ int main(int argc, char* argv[]){
     //cout << get_max_grade_id(values, kSize) << endl;
 
     //double get_grade(int id, int grade_index, const std::string values[], int size)
-    cout << get_grade(1234, 3, values, kSize) << endl;
+    //cout << get_grade(1234, 3, values, kSize) << endl;
 
     //int get_num_grades(int id, const std::string values[], int size)
     //cout << get_num_grades(3456, values, kSize) << endl;

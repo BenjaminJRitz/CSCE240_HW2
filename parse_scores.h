@@ -13,37 +13,41 @@ using std::endl;
 int is_corrupted(const std::string values[], int size){
     int flag = 0;
     int position = 0;
-    for(int i = 0; i < std::stoi(values[0]); ++i){
-        ++position;
-        if(values[position].length() == 4){
-            //cout << "id at position " << position << " is " << std::stoi(values[position]) << endl;
-            if((position +1) == size){
-                flag = 1;
-                break;
-            }else{
-                ++position;
-                int j = std::stoi(values[position]);
-                while(j > 0){
-                    ++position;
-                    if((position + j) > size){
-                        flag = 1;
-                        break;
-                    }else{
-                        if(values[position].at(2) == '.'){
-                            //cout << "score at position " << position << " is " << values[position] << endl;
-                            }else{
-                                flag = 1;
-                                break;
-                            }//ending bracket for if else
-                    }//ending bracket for else
-                    --j;
-                }// ending bracket for while loop
-                if(flag == 1){
+    if(size == 0){
+        flag = 1;
+    }else{
+        for(int i = 0; i < std::stoi(values[0]); ++i){
+            ++position;
+            if(values[position].length() == 4){
+                //cout << "id at position " << position << " is " << std::stoi(values[position]) << endl;
+                if((position +1) == size){
+                    flag = 1;
                     break;
-                }//ending bracket for if statement
-            }//ending bracket for else statement
-        }// ending bracket of if statement
-    } // Ending bracket of for loop
+                }else{
+                    ++position;
+                    int j = std::stoi(values[position]);
+                    while(j > 0){
+                        ++position;
+                        if((position + j) > size){
+                            flag = 1;
+                            break;
+                        }else{
+                            if((values[position].at(1) == '.') || (values[position].at(2) == '.')){
+                                //cout << "score at position " << position << " is " << values[position] << endl;
+                                }else{
+                                    flag = 1;
+                                    break;
+                                }//ending bracket for if else
+                        }//ending bracket for else
+                        --j;
+                    }// ending bracket for while loop
+                    if(flag == 1){
+                        break;
+                    }//ending bracket for if statement
+                }//ending bracket for else statement
+            }// ending bracket of if statement
+        } // Ending bracket of for loop
+    }// ending bracket for else
 
     //cout << flag << endl;
     return flag;
@@ -256,7 +260,7 @@ double get_max_grade(const std::string values[], int size){
  * - size: number of elements in values array
  * - ids: an input parameter into which student ids are stored
  * Returns:
- * - Number of grades parsed
+ * - Number of Ids parsed
  * - Integer -10 if format corrupt i.e. 2 1234 1 99.2 2345
  */
 int get_student_ids(const std::string values[], int size, int ids[]){
