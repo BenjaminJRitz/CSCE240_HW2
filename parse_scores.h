@@ -1,6 +1,6 @@
 // Copyright 2019 <Benjamin Ritz>
-#ifndef _PARSE_SCORES_H_     // NO LINT
-#define _PARSE_SCORES_H_
+#ifndef _PARSE_SCORES_H_ // NOLINT
+#define _PARSE_SCORES_H_ // NOLINT
 #include <string>
 #include <iostream>
 using std::cout;
@@ -13,47 +13,8 @@ using std::endl;
 * i.e. 2 1234 1 99.2 2345
 *  i.e. 1 1234 3 99.7 82.1
 */
-int is_corrupted(const std::string values[], int size) {
-    int flag = 0;
-    int position = 0;
-    if (size == 0) {
-        flag = 1;
-    } else {
-        for (int i = 0; i < std::stoi(values[0]); ++i) {
-            ++position;
-            if (values[position].length() == 4) {
-                if ((position +1) == size) {
-                    flag = 1;
-                    break;
-                } else {
-                    ++position;
-                    int j = std::stoi(values[position]);
-                    while (j > 0) {
-                        ++position;
-                        if ((position + j) > size) {
-                            flag = 1;
-                            break;
-                        } else {
-                            if ((values[position].at(1) == '.')
-                            || (values[position].at(2) == '.')) {
-                                } else {
-                                    flag = 1;
-                                    break;
-                                }  // ending bracket for if else
-                        }  // ending bracket for else
-                        --j;
-                    }  // ending bracket for while loop
-                    if (flag == 1) {
-                        break;
-                    }  // ending bracket for if statement
-                }  // ending bracket for else statement
-            }  // ending bracket of if statement
-        }  // Ending bracket of for loop
-    }  // ending bracket for else
+int is_corrupted(const std::string values[], int stize);
 
-    // cout << flag << endl;
-    return flag;
-}  // ending bracket for funtion is_corrupted
 
 // ----------------------------------------------------------------------------------------------------
 /* Description:
@@ -71,19 +32,8 @@ int is_corrupted(const std::string values[], int size) {
  * - Integer -1 when a match for parameter id is not found in student ids
  * - Integer -10 when the format is corrupt i.e. 1 1234 3 99.7 82.1
  */
-int get_num_grades(int id, const std::string values[], int size) {
-    int grades = -1;
-    if (is_corrupted(values, size) == 1) {
-        grades = -10;
-    } else {
-        for (int i = 0; i <size; ++i) {
-            if (std::stoi(values[i]) == id) {
-                grades = std::stoi(values[i+1]);
-            }  // ending bracket for if
-        }  // ending bracekt for for loop
-    }  // ending bracekt for else
-    return grades;
-}  // ending bracket for function get_num_grades
+int get_num_grades(int id, const std::string values[], int size);
+
 
 // -------------------------------------------------------------------------------------------------------------
 /* Description:
@@ -106,22 +56,8 @@ int get_num_grades(int id, const std::string values[], int size) {
  * - Integer -10 if format corrupt i.e. 2 1234 1 99.2 2345
  * - Integer -1 if id not found
  */
-int get_grades(int id, const std::string values[], int size, double grades[]) {
-    int numGrades = -1;
-    if (is_corrupted(values, size) == 1) {
-    numGrades = -10;
-    } else {
-        for (int i = 0; i < size; ++i) {
-            if (std::stoi(values[i]) == id) {
-                numGrades = std::stoi(values[i+1]);
-                for (int j = 0; j < numGrades; ++j) {
-                    grades[j] = std::stod(values[i+2+j]);
-                }  // ending bracket for inner for loop
-            }  // ending bracekt for if
-        }  // ending bracket for outer for loop
-    }  // ending bracket for else
-    return numGrades;
-}  // ending bracket for function get_grades
+int get_grades(int id, const std::string values[], int size, double grades[]);
+
 
 // ---------------------------------------------------------------------------------------------------
 /* Description:
@@ -139,28 +75,8 @@ int get_grades(int id, const std::string values[], int size, double grades[]) {
  * - Integer -2 when grade_index is not found
  * - Integer -10 when values format is corrupt
  */
-double get_grade(int id, int grade_index, const std::string values[],
- int size) {
-    double grade = 0;
-    if (is_corrupted(values, size) == 1) {
-        grade = -10;
-    } else {
-        for (int i = 0; i < size; ++i) {
-            if ((std::stoi(values[i]) == id) &&
-             (std::stoi(values[i+1]) > grade_index)) {
-                grade = std::stod(values[i+2+grade_index]);
-                break;
-            } else if ((std::stoi(values[i]) == id) &&
-             (std::stoi(values[i+1]) <= grade_index)) {
-                    grade = -2;
-                    break;
-            } else {
-                grade = -1;
-            }  // ending bracket for if else
-        }  // ending bracket for for loop
-    }  // ending bracket for ir else
-    return grade;
-}  // ending bracket for function get_grade
+double get_grade(int id, int grade_index, const std::string values[], int size);
+
 
 // --------------------------------------------------------------------------------------------------
 /* Description:
@@ -176,39 +92,8 @@ double get_grade(int id, int grade_index, const std::string values[],
  * - Integer -2 when no grades exist
  * - Integer -10 when the format is corrupt i.e. 1 1234 3 99.7 82.1
  */
-int get_max_grade_id(const std::string values[], int size) {
-    int position = 0;
-    double maxGrade = 0;
-    int maxId = 0;
-    int currentId = 0;
-     if (is_corrupted(values, size) == 1) {
-        maxId = -10;
-    } else if (std::stoi(values[0]) == 0) {
-        maxId = -1;
-    } else if (std::stoi(values[2]) == 0) {
-        maxId = -2;
-    } else {
-        for (int i = 0; i < std::stoi(values[0]); ++i) {
-            ++position;
-            if (values[position].length() == 4) {
-                currentId = std::stoi(values[position]);
-                ++position;
-                int j = std::stoi(values[position]);
-                while (j > 0) {
-                    ++position;
-                        if (values[position].at(2) == '.') {
-                            if (std::stod(values[position]) > maxGrade) {
-                                maxGrade = std::stod(values[position]);
-                                maxId = currentId;
-                            }  // ending bracket for if
-                        }  // ending bracket for if
-                    --j;
-                }  // ending bracket for while loop
-            }  // ending bracket of if statement
-        }  // Ending bracket of for loop
-    }  // ending bracket for else
-    return maxId;
-}  // ending bracket for function get_max_id
+int get_max_grade_id(const std::string values[], int size);
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 /* Description:
@@ -225,28 +110,8 @@ int get_max_grade_id(const std::string values[], int size) {
  * - Integer -2 when no grades exist
  * - Integer -10 when the format is corrupt i.e. 1 1234 3 99.7 82.1
  */
-double get_max_grade(const std::string values[], int size) {
-    double maxGrade = 0;
-    if (is_corrupted(values, size) == 1) {
-        maxGrade = -10;
-    } else if (std::stoi(values[0]) == 0) {
-        maxGrade = -1;
-    } else if (std::stoi(values[2]) == 0) {
-        maxGrade = -2;
-    } else {
-        for (int i = 0; i < size; ++i) {
-            if (values[i].length() >= 3) {
-                if (values[i].at(2) == '.') {
-                    // cout << values[i] << endl;
-                    if (std::stod(values[i]) > maxGrade) {
-                        maxGrade = std::stod(values[i]);
-                    }  // ending bracket for if
-                }  // ending bracket for if
-            }  // ending bracket for if
-        }  // ending bracket for for loop
-    }  // ending bracket for else
-    return maxGrade;
-}  // ending bracket for functino get_max_grade
+double get_max_grade(const std::string values[], int size);
+
 
 // -------------------------------------------------------------------------------------------------------------
 /* Description:
@@ -265,29 +130,7 @@ double get_max_grade(const std::string values[], int size) {
  * - Number of Ids parsed
  * - Integer -10 if format corrupt i.e. 2 1234 1 99.2 2345
  */
-int get_student_ids(const std::string values[], int size, int ids[]) {
-    int retValue = 0;
-    int valuesPosition = 1;
-    int idsPosition = 0;
-    int numGrade = 0;
+int get_student_ids(const std::string values[], int size, int ids[]);
 
-    if (is_corrupted(values, size) == 1) {
-        retValue = -10;
-    } else {
-        for (int i = 0; i < std::stoi(values[0]); i++) {
-            ids[idsPosition] = std::stoi(values[valuesPosition]);
-            ++numGrade;
-            ++valuesPosition;
-            valuesPosition += std::stoi(values[valuesPosition]);
-            ++valuesPosition;
-            ++idsPosition;
-        }  // ending bracket of for loop
-        retValue = numGrade;
-    }  // ending bracket of else
-
-    return retValue;
-}  // ending bracket for function ge_student_ids
-
-// -----------------------------------------------------------------------------------------------------
-#endif  // PARSE_SCORES_H_
+#endif  // NOLINT
 

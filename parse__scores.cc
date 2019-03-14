@@ -3,12 +3,44 @@
 
 int is_corrupted(const std::string values[], int size) {
     int flag = 0;
-    int parsedsize = 0;
+    int position = 0;
+    if (size == 0) {
+        flag = 1;
+    } else {
+        for (int i = 0; i < std::stoi(values[0]); ++i) {
+            ++position;
+            if (values[position].length() == 4) {
+                if ((position +1) == size) {
+                    flag = 1;
+                    break;
+                } else {
+                    ++position;
+                    int j = std::stoi(values[position]);
+                    while (j > 0) {
+                        ++position;
+                        if ((position + j) > size) {
+                            flag = 1;
+                            break;
+                        } else {
+                            if ((values[position].at(1) == '.')
+                            || (values[position].at(2) == '.')) {
+                                } else {
+                                    flag = 1;
+                                    break;
+                                }  // ending bracket for if else
+                        }  // ending bracket for else
+                        --j;
+                    }  // ending bracket for while loop
+                    if (flag == 1) {
+                        break;
+                    }  // ending bracket for if statement
+                }  // ending bracket for else statement
+            }  // ending bracket of if statement
+        }  // Ending bracket of for loop
+    }  // ending bracket for else
 
-    for (int i = 0; i < std::stoi(values[0]); ++i) {
-        parsedsize +=2;
-        for (int i = 0; i < )
-    }
+    // cout << flag << endl;
+    return flag;
 }  // ending bracket for funtion is_corrupted
 
 int get_num_grades(int id, const std::string values[], int size) {
