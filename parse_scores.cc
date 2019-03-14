@@ -7,8 +7,13 @@ int is_corrupted(const std::string values[], int size) {
 
     for (int i = 0; i < std::stoi(values[0]); ++i) {
         parsedsize +=2;
-        for (int i = 0; i < )
-    }
+        parsedsize += stoi(values[parsedsize]);
+    }  // ending bracket for for loop
+    ++parsedsize;
+    if (parsedsize > size) {
+        flag = 1;
+    }  // Ending bracket for if statement
+    return flag;
 }  // ending bracket for funtion is_corrupted
 
 int get_num_grades(int id, const std::string values[], int size) {
