@@ -1,5 +1,5 @@
-#include "parse_scores.h"
-
+// Copyright 2019 <Benjamin Ritz>
+#include "parse_scores.h"  // NOLINT
 
 int is_corrupted(const std::string values[], int size) {
     int flag = 0;
@@ -75,6 +75,7 @@ int get_max_grade_id(const std::string values[], int size) {
     double maxGrade = 0;
     int maxId = 0;
     int currentId = 0;
+    int innerloop = 0;
      if (is_corrupted(values, size) == 1) {
         maxId = -10;
     } else if (std::stoi(values[0]) == 0) {
@@ -84,48 +85,51 @@ int get_max_grade_id(const std::string values[], int size) {
     } else {
         for (int i = 0; i < std::stoi(values[0]); ++i) {
             ++position;
-            if (values[position].length() == 4) {
-                currentId = std::stoi(values[position]);
+            currentId = std::stoi(values[position]);
+            ++position;
+            innerloop = std::stoi(values[position]);
+            for (int j = 0; j < innerloop; ++j) {
                 ++position;
-                int j = std::stoi(values[position]);
-                while (j > 0) {
-                    ++position;
-                        if (values[position].at(2) == '.') {
-                            if (std::stod(values[position]) > maxGrade) {
-                                maxGrade = std::stod(values[position]);
-                                maxId = currentId;
-                            }  // ending bracket for if
-                        }  // ending bracket for if
-                    --j;
-                }  // ending bracket for while loop
-            }  // ending bracket of if statement
-        }  // Ending bracket of for loop
-    }  // ending bracket for else
+                if (std::stod(values[position]) > maxGrade) {
+                    maxGrade = std::stod(values[position]);
+                    maxId = currentId;
+                }  // ending bracket for if statement
+            }  // ending bracket for inner for loop
+        }  // Ending bracket for outside for loop
+    }  // ending bracket for if else
     return maxId;
-}  // ending bracket for function get_max_id
+}  // ending bracket for function get_max_grade_id
 
 double get_max_grade(const std::string values[], int size) {
+    int position = 0;
     double maxGrade = 0;
-    if (is_corrupted(values, size) == 1) {
+    int innerloop = 0;
+    // int maxId = 0;
+    // int currentId = 0;
+     if (is_corrupted(values, size) == 1) {
         maxGrade = -10;
     } else if (std::stoi(values[0]) == 0) {
         maxGrade = -1;
     } else if (std::stoi(values[2]) == 0) {
         maxGrade = -2;
     } else {
-        for (int i = 0; i < size; ++i) {
-            if (values[i].length() >= 3) {
-                if (values[i].at(2) == '.') {
-                    // cout << values[i] << endl;
-                    if (std::stod(values[i]) > maxGrade) {
-                        maxGrade = std::stod(values[i]);
-                    }  // ending bracket for if
-                }  // ending bracket for if
-            }  // ending bracket for if
-        }  // ending bracket for for loop
-    }  // ending bracket for else
+        for (int i = 0; i < std::stoi(values[0]); ++i) {
+            position += 1;
+            // currentId = std::stoi(values[position]);
+            position += 1;
+            innerloop = std::stoi(values[position]);
+            for (int i = 0; i < innerloop; ++i) {
+                ++position;
+                if (std::stod(values[position]) > maxGrade) {
+                    maxGrade = std::stod(values[position]);
+                    // maxId = currentId;
+                }  // ending bracket for if statement
+            }  // ending bracket for inner for loop
+        }  // Ending bracket for outside for loop
+    }  // ending bracket for if else
     return maxGrade;
-}  // ending bracket for functino get_max_grade
+}  // ending bracket for function get_max_grade_id
+
 
 int get_student_ids(const std::string values[], int size, int ids[]) {
     int retValue = 0;
